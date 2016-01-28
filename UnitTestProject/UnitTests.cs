@@ -70,7 +70,8 @@ namespace UnitTestProject
                 {
                     Console.SetIn(reader);
 
-                    Tusc.Start(users, products);
+                    Tusc tusc = new Tusc(new DataStore(users, products));
+                    tusc.start();
                 }
             }
         }
@@ -86,10 +87,11 @@ namespace UnitTestProject
                 {
                     Console.SetIn(reader);
 
-                    Tusc.Start(users, products);
+                    Tusc tusc = new Tusc(new DataStore(users, products));
+                    tusc.start();
                 }
 
-                Assert.IsTrue(writer.ToString().Contains("You entered an invalid user"));
+                Assert.IsTrue(writer.ToString().Contains("You entered an invalid username or password"));
             }
         }
 
@@ -104,7 +106,8 @@ namespace UnitTestProject
                 {
                     Console.SetIn(reader);
 
-                    Tusc.Start(users, products);
+                    Tusc tusc = new Tusc(new DataStore(users, products));
+                    tusc.start();
                 }
             }
         }
@@ -120,10 +123,11 @@ namespace UnitTestProject
                 {
                     Console.SetIn(reader);
 
-                    Tusc.Start(users, products);
+                    Tusc tusc = new Tusc(new DataStore(users, products));
+                    tusc.start();
                 }
 
-                Assert.IsTrue(writer.ToString().Contains("You entered an invalid password"));
+                Assert.IsTrue(writer.ToString().Contains("You entered an invalid username or password"));
             }
         }
 
@@ -138,7 +142,8 @@ namespace UnitTestProject
                 {
                     Console.SetIn(reader);
 
-                    Tusc.Start(users, products);
+                    Tusc tusc = new Tusc(new DataStore(users, products));
+                    tusc.start();
                 }
 
                 Assert.IsTrue(writer.ToString().Contains("Purchase cancelled"));
@@ -161,7 +166,8 @@ namespace UnitTestProject
                 {
                     Console.SetIn(reader);
 
-                    Tusc.Start(tempUsers, products);
+                    Tusc tusc = new Tusc(new DataStore(tempUsers, products));
+                    tusc.start();
                 }
 
                 Assert.IsTrue(writer.ToString().Contains("You do not have enough money to buy that"));
@@ -183,7 +189,8 @@ namespace UnitTestProject
                 {
                     Console.SetIn(reader);
 
-                    Tusc.Start(users, tempProducts);
+                    Tusc tusc = new Tusc(new DataStore(users, tempProducts));
+                    tusc.start();
                 }
 
                 Assert.IsTrue(writer.ToString().Contains("is out of stock"));
