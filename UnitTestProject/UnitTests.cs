@@ -1,5 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using NUnit.Framework;
 using Refactoring;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 namespace UnitTestProject
 {
-    [TestClass]
+    [TestFixture]
     public class UnitTests
     {
         private List<User> users;
@@ -17,33 +17,33 @@ namespace UnitTestProject
         private List<Product> products;
         private List<Product> originalProducts;
 
-        [TestInitialize]
+        [SetUp]
         public void Test_Initialize()
         {
             // Load users from data file
-            originalUsers = JsonConvert.DeserializeObject<List<User>>(File.ReadAllText(@"Data\Users.json"));
+            originalUsers = JsonConvert.DeserializeObject<List<User>>(File.ReadAllText(@"Data/Users.json"));
             users = DeepCopy<List<User>>(originalUsers);
 
             // Load products from data file
-            originalProducts = JsonConvert.DeserializeObject<List<Product>>(File.ReadAllText(@"Data\Products.json"));
+            originalProducts = JsonConvert.DeserializeObject<List<Product>>(File.ReadAllText(@"Data/Products.json"));
             products = DeepCopy<List<Product>>(originalProducts);
         }
 
-        [TestCleanup]
+        [TearDown]
         public void Test_Cleanup()
         {
             // Restore users
             string json = JsonConvert.SerializeObject(originalUsers, Formatting.Indented);
-            File.WriteAllText(@"Data\Users.json", json);
+            File.WriteAllText(@"Data/Users.json", json);
             users = DeepCopy<List<User>>(originalUsers);
 
             // Restore products
             string json2 = JsonConvert.SerializeObject(originalProducts, Formatting.Indented);
-            File.WriteAllText(@"Data\Products.json", json2);
+            File.WriteAllText(@"Data/Products.json", json2);
             products = DeepCopy<List<Product>>(originalProducts);
         }
 
-        [TestMethod]
+        [Test]
         public void Test_StartingTuscFromMainDoesNotThrowAnException()
         {
             using (var writer = new StringWriter())
@@ -59,7 +59,7 @@ namespace UnitTestProject
             }
         }
 
-        [TestMethod]
+        [Test]
         public void Test_TuscDoesNotThrowAnException()
         {
             using (var writer = new StringWriter())
@@ -76,7 +76,7 @@ namespace UnitTestProject
             }
         }
 
-        [TestMethod]
+        [Test]
         public void Test_InvalidUserIsNotAccepted()
         {
             using (var writer = new StringWriter())
@@ -95,7 +95,7 @@ namespace UnitTestProject
             }
         }
 
-        [TestMethod]
+        [Test]
         public void Test_EmptyUserDoesNotThrowAnException()
         {
             using (var writer = new StringWriter())
@@ -112,7 +112,7 @@ namespace UnitTestProject
             }
         }
 
-        [TestMethod]
+        [Test]
         public void Test_InvalidPasswordIsNotAccepted()
         {
             using (var writer = new StringWriter())
@@ -131,7 +131,7 @@ namespace UnitTestProject
             }
         }
 
-        [TestMethod]
+        [Test]
         public void Test_UserCanCancelPurchase()
         {
             using (var writer = new StringWriter())
@@ -151,7 +151,7 @@ namespace UnitTestProject
             }
         }
 
-        [TestMethod]
+        [Test]
         public void Test_ErrorOccursWhenBalanceLessThanPrice()
         {
             // Update data file
@@ -174,7 +174,7 @@ namespace UnitTestProject
             }
         }
 
-        [TestMethod]
+        [Test]
         public void Test_ErrorOccursWhenProductOutOfStock()
         {
             // Update data file

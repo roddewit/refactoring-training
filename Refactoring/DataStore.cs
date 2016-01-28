@@ -26,8 +26,8 @@ namespace Refactoring
 
         public void writeToDisk()
         {
-            writeObjectToFile(this.Users.UserList, @"Data\Users.json");
-            writeObjectToFile(this.Products, @"Data\Products.json");    
+            writeObjectToFile(this.Users.UserList, @"Data/Users.json");
+            writeObjectToFile(this.Products, @"Data/Products.json");    
         }
 
         private void writeObjectToFile(object objectToWrite, string fileName)
